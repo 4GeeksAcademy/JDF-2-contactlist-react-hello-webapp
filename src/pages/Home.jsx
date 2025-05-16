@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { getContacts } from "../services/contacts";
+import { getContacts } from "../components/contacts";
 import ContactCard from "../components/ContactCard";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
@@ -27,6 +28,9 @@ export const Home = () => {
           <ContactCard key={contact.id} contact={contact} />
         ))}
       </div>
+      <Link to="/add" className="btn btn-success mb-3">Agregar Contacto</Link>
     </div>
   );
 };
+
+

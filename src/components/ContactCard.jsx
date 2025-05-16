@@ -1,17 +1,24 @@
+import { Link } from "react-router-dom";
+import { deleteContact } from "../components/contacts";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+
 const ContactCard = ({ contact }) => {
+  const { dispatch } = useGlobalReducer();
+
+  const handleDelete = async () => {
+    if (window.confirm("¿Seguro que quieres eliminar este contacto?")) {
+      await deleteContact(contact.id);
+      dispatch({ type: "delete_contact", payload: contact.id });
+    }
+  };
+
   return (
     <div className="card mb-3">
       <div className="card-body">
-        <h5 className="card-title">{contact.full_name}</h5>
-        <p className="card-text">
-          <strong>Email:</strong> {contact.email}<br />
-          <strong>Teléfono:</strong> {contact.phone}<br />
-          <strong>Dirección:</strong> {contact.address}
-        </p>
-       <button className="btn btn-success">Editar contacto</button>
-       <button className="btn btn-success">Eliminar contacto</button>
-       
-        {/* Aquí luego puedes añadir botones de editar/eliminar */}
+        <h5>{contact.full_name}</h5>
+        <p>{contact.email}<br />{contact.phone}<br />{contact.address}</p>
+        <Link to={`/edit/${contact.id}`} className="btn btn-warning me-2">Editar</Link>
+        <button onClick={handleDelete} className="btn btn-danger">Eliminar</button>
       </div>
     </div>
   );
