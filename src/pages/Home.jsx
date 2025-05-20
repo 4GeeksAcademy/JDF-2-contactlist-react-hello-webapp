@@ -8,17 +8,18 @@ export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
 
   useEffect(() => {
-    async function fetchContacts() {
-      try {
-        const data = await getContacts();
-        dispatch({ type: "set_contacts", payload: data });
-      } catch (error) {
-        console.error("Error al cargar contactos", error);
-      }
+  async function fetchContacts() {
+    try {
+      await createAgenda(); // Asegura que la agenda existe
+      const data = await getContacts();
+      dispatch({ type: "set_contacts", payload: data });
+    } catch (error) {
+      console.error("Error al cargar contactos", error);
     }
+  }
 
-    fetchContacts();
-  }, [dispatch]);
+  fetchContacts();
+}, [dispatch]);
 
   return (
     <div className="container mt-5">

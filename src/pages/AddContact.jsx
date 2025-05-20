@@ -34,21 +34,24 @@ const AddContact = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (id) {
-        const updated = await updateContact({ ...form, id: parseInt(id) });
-        dispatch({ type: "update_contact", payload: updated });
-      } else {
-        const newContact = await createContact(form);
-        dispatch({ type: "add_contact", payload: newContact });
-      }
-      navigate("/"); // Volver al listado
-    } catch (error) {
-      console.error("Error al guardar el contacto:", error);
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const newContact = {
+    full_name: form.full_name,
+    email: form.email,
+    phone: form.phone,
+    address: form.address,
+    agenda_slug: "JoanDo"  // muy importante
   };
+
+  try {
+    await createContact(newContact);
+    navigate("/");
+  } catch (error) {
+    console.error("Error al guardar el contacto:", error);
+  }
+};
 
   return (
     <div className="container mt-5">

@@ -20,7 +20,7 @@ export async function createContact(contact) {
     const response = await fetch(`https://playground.4geeks.com/contact/agendas/JoanDo/contacts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...contact, agenda_slug: JoanDo })
+        body: JSON.stringify({ ...contact, agenda_slug: "JoanDo" })
     });
     if (!response.ok) throw new Error("Error al crear contacto");
     return await response.json();
