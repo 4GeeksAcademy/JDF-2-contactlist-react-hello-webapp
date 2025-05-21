@@ -38,15 +38,20 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const newContact = {
-    full_name: form.full_name,
-    email: form.email,
-    phone: form.phone,
-    address: form.address,
-    agenda_slug: "JoanDo"  // muy importante
+    ...form,
+    agenda_slug: "JoanDo"
   };
 
   try {
-    await createContact(newContact);
+    if (id) {
+      // EDITAR
+      await updateContact({ ...newContact, id: parseInt(id) });
+      dispatch({ type: "update_contact", payload: { ...newContact, id: parseInt(id) } });
+    } else {
+      // CREAR
+      const result = await createContact(newContact);
+      dispatch({ type: "add_contact", payload: result });
+    }
     navigate("/");
   } catch (error) {
     console.error("Error al guardar el contacto:", error);

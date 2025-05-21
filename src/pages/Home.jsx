@@ -4,13 +4,14 @@ import { getContacts } from "../components/contacts";
 import ContactCard from "../components/ContactCard";
 import { Link } from "react-router-dom";
 
+
 export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
 
   useEffect(() => {
   async function fetchContacts() {
     try {
-      await createAgenda(); // Asegura que la agenda existe
+      await createAgenda(); 
       const data = await getContacts();
       dispatch({ type: "set_contacts", payload: data });
     } catch (error) {
@@ -22,15 +23,20 @@ export const Home = () => {
 }, [dispatch]);
 
   return (
-    <div className="container mt-5">
-      <h1>Lista de Contactos</h1>
-      <div>
-        {store.contacts.map(contact => (
-          <ContactCard key={contact.id} contact={contact} />
-        ))}
-      </div>
-      <Link to="/add" className="btn btn-success mb-3">Agregar Contacto</Link>
-    </div>
+    <div className="text-center mt-5 ">
+			<h1>Lista de morosos
+				
+			</h1>
+		<div className= "d-flex justify-content-center">
+			
+		<div className="d-flex flex-column align-items-center">
+  {store.contacts.map(contact => (
+    <ContactCard key={contact.id} contact={contact} />
+  ))}
+</div>
+
+		</div>
+		</div>
   );
 };
 
