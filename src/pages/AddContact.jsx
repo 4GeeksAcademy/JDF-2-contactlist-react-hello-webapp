@@ -4,7 +4,7 @@ import { createContact, updateContact, getContacts } from "../components/contact
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const initialForm = {
-  full_name: "",
+  name: "",
   email: "",
   phone: "",
   address: ""
@@ -21,7 +21,7 @@ const AddContact = () => {
       const contactToEdit = store.contacts.find(c => c.id === parseInt(id));
       if (contactToEdit) {
         setForm({
-          full_name: contactToEdit.full_name,
+          name: contactToEdit.name,
           email: contactToEdit.email,
           phone: contactToEdit.phone,
           address: contactToEdit.address
@@ -63,8 +63,8 @@ const handleSubmit = async (e) => {
       <h2>{id ? "Editar Contacto" : "Nuevo Contacto"}</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label">Nombre Completo</label>
-          <input type="text" className="form-control" name="full_name" value={form.full_name} onChange={handleChange} required />
+          <label className="form-label">Nombre </label>
+          <input type="text" className="form-control" name="name" value={form.name} onChange={handleChange} required />
         </div>
         <div className="mb-3">
           <label className="form-label">Email</label>

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { getContacts } from "../components/contacts";
+import { getContacts, createAgenda } from "../components/contacts";
 import ContactCard from "../components/ContactCard";
-import { Link } from "react-router-dom";
+
 
 
 export const Home = () => {
@@ -11,7 +11,7 @@ export const Home = () => {
   useEffect(() => {
   async function fetchContacts() {
     try {
-      await createAgenda(); 
+     // await createAgenda(); 
       const data = await getContacts();
       dispatch({ type: "set_contacts", payload: data });
     } catch (error) {
@@ -22,21 +22,23 @@ export const Home = () => {
   fetchContacts();
 }, [dispatch]);
 
+
   return (
-    <div className="text-center mt-5 ">
-			<h1>Lista de morosos
-				
-			</h1>
-		<div className= "d-flex justify-content-center">
-			
-		<div className="d-flex flex-column align-items-center">
-  {store.contacts.map(contact => (
-    <ContactCard key={contact.id} contact={contact} />
-  ))}
+ <div className="card mt-4 p-3" style={{ width: "70rem" }}>
+  <div className="card-header text-center">
+    <h2>Contactos</h2>
+  </div>
+  <div className="card-body">
+    <div className="row">
+      {store.contacts.map(contact => (
+        <div key={contact.id} className="col-md-6 mb-3">
+          <ContactCard contact={contact} />
+        </div>
+      ))}
+    </div>
+  </div>
 </div>
 
-		</div>
-		</div>
   );
 };
 

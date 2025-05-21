@@ -13,8 +13,13 @@ export async function createAgenda () {
 export async function getContacts() {
     const response = await fetch(`https://playground.4geeks.com/contact/agendas/JoanDo/contacts`);
     if (!response.ok) throw new Error("Error al obtener contactos");
-    return await response.json();
+    
+    const data = await response.json();
+    return data.contacts; // <- aquí devolvemos solo el array
 }
+const data = await getContacts();
+console.log("DATA:", data); // Aquí puedes inspeccionar la estructura real
+
 
 export async function createContact(contact) {
     const response = await fetch(`https://playground.4geeks.com/contact/agendas/JoanDo/contacts`, {
